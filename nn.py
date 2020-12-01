@@ -25,9 +25,9 @@ FULLNAME = lambda filename: os.path.join( os.path.dirname(sys.argv[0]), filename
 
 def query( fname, key='key', topk=10, truncate=80 ):
 
-    model = pickle.load( open(FULLNAME(CONST.MODEL), 'rb') )
+    model = pickle.load( open(CONST.MODEL, 'rb') )
 
-    dataframe = pd.read_csv( FULLNAME(CONST.DATASET) )
+    dataframe = pd.read_csv( CONST.DATASET )
     corpus    = TfidfVectorizer().fit_transform( dataframe['content'] )
 
     lsh = LSH( corpus, model )
@@ -38,6 +38,7 @@ def query( fname, key='key', topk=10, truncate=80 ):
 
 
 if __name__ == "__main__" :
+
 
     if "-h" in sys.argv or "--help" in sys.argv :
 
@@ -52,18 +53,18 @@ if __name__ == "__main__" :
     if "--fetch" in sys.argv :
 
         pluginName = sys.argv[2].replace('.py', '')
-        Dimport( "plugins.%s"%pluginName, pluginName, FULLNAME('') )( FULLNAME(CONST.DATASET) )
+        Dimport( "plugins.%s"%pluginName, pluginName, FULLNAME('') )( CONST.DATASET )
 
 
     if "--train" in sys.argv :
 
-        dataframe = pd.read_csv( FULLNAME(CONST.DATASET) )
+        dataframe = pd.read_csv( CONST.DATASET )
         corpus    = TfidfVectorizer().fit_transform( dataframe['content'] )
 
         lsh = LSH( corpus )
         model = lsh.train()
 
-        pickle.dump( model, open( FULLNAME(CONST.MODEL), 'wb' ) )
+        pickle.dump( model, open( CONST.MODEL, 'wb' ) )
 
 
     if "--query" in sys.argv :

@@ -33,7 +33,7 @@ def index( ):
             </style>'''
             try:
                 yield '''
-            <code><p>''' + HTMLENCODE( nn.query( data['fname'], data['topk'], data['truncate'] ).to_string() ) + '''
+            <code><p>''' + HTMLENCODE( nn.query( data['fname'], 'key', data['topk'], data['truncate'] ).to_string() ) + '''
             </p></code>'''
             except Exception as e:
                 yield '''
