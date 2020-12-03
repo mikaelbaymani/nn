@@ -53,7 +53,7 @@ if __name__ == "__main__" :
     if "--fetch" in sys.argv :
 
         pluginName = sys.argv[2].replace('.py', '')
-        Dimport( "plugins.%s"%pluginName, pluginName, FULLNAME('') )( CONST.DATASET )
+        Dimport( "%s"%pluginName, pluginName, FULLNAME('plugins') )( CONST.DATASET )
 
 
     if "--train" in sys.argv :
